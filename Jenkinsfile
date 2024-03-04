@@ -69,7 +69,7 @@ pipeline {
                 }
             }
         }
-        stage("Test on Linux") {
+        stage("Test on Windows") {
             agent {
                 label 'windows'
             }
