@@ -59,23 +59,25 @@
 
 pipeline {
     agent any
-    stages("Test on Linux") {
-        agent {
-            label 'linux'
-        }
-        steps{
-            script {
-                sh "python3 hello.py"
+    stages{
+        stage("Test on Linux") {
+            agent {
+                label 'linux'
+            }
+            steps{
+                script {
+                    sh "python3 hello.py"
+                }
             }
         }
-    }
-    stages("Test on Linux") {
-        agent {
-            label 'windows'
-        }
-        steps{
-            script {
-                bat "python3 hello.py"
+        stage("Test on Linux") {
+            agent {
+                label 'windows'
+            }
+            steps{
+                script {
+                    bat "python3 hello.py"
+                }
             }
         }
     }
