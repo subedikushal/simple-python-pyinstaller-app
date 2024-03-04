@@ -30,27 +30,51 @@
 //     }
 // }
 
+// pipeline {
+//     agent any
+//     environment {
+//         // Using returnStdout
+//         CC = """${sh(
+//                 returnStdout: true,
+//                 script: 'echo "clang"'
+//             )}"""
+//         // Using returnStatus
+//         EXIT_STATUS = """${sh(
+//                 returnStatus: true,
+//                 script: 'exit 1'
+//             )}"""
+//     }
+//     stages {
+//         stage('Example') {
+//             environment {
+//                 DEBUG_FLAGS = '-g'
+//             }
+//             steps {
+//                 sh 'printenv'
+//             }
+//         }
+//     }
+// }
+
+
 pipeline {
-    agent any
+    agent {
+        // Define agent details here
+    }
     environment {
-        // Using returnStdout
-        CC = """${sh(
-                returnStdout: true,
-                script: 'echo "clang"'
-            )}"""
-        // Using returnStatus
-        EXIT_STATUS = """${sh(
-                returnStatus: true,
-                script: 'exit 1'
-            )}"""
+        AWS_ACCESS_KEY_ID     = credentials('jenkins-aws-secret-key-id')
+        AWS_SECRET_ACCESS_KEY = credentials('jenkins-aws-secret-access-key')
     }
     stages {
-        stage('Example') {
-            environment {
-                DEBUG_FLAGS = '-g'
-            }
+        stage('Example stage 1') {
             steps {
-                sh 'printenv'
+                 echo "$env.AWS_ACCESS_KEY_ID"
+            }
+        }
+        stage('Example stage 2') {
+            steps {
+                 echo "$env.AWS_SECRET_ACCESS_KEY"
+                // 
             }
         }
     }
